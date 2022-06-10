@@ -1,0 +1,55 @@
+*{
+    box-sizing: border-box;
+
+}
+
+body{
+background-color: #CC9544;
+}
+
+.main-container{
+    height: 30rem;
+    width: 30rem;
+    background-color: white;
+    margin: auto;
+    margin-top: 6rem;
+    border-radius: 20px;
+    
+}
+.top-section{
+    height: 4rem;
+    background-color: cornflowerblue;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+.top-section{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+.TaskLists{
+    font-size: 1.23rem;
+    font-weight: 600;
+    color: white;
+}
+.Completed{
+    font-size: 1.23rem;
+    font-weight: 600;
+    color:white;
+}
+.btn{
+    height: 4rem;
+    width: 4rem;
+    background-color: whitesmoke;
+    border-radius: 100%;
+    margin: auto;
+    margin-top: 24rem;
+    
+}
+.fa.fa-plus{
+    margin-left: 1.5rem;
+    margin-top: 1.4rem;
+    font-size: 1.3rem;
+    color: blue;
+}
