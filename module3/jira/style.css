@@ -1,49 +1,56 @@
+
 *{
     box-sizing: border-box;
-    
 }
 body{
     margin: 0px;
     padding: 0px;
-    /* CC9544 */
-    background-color:#CC9544;    
+    background-color:#E8C07D ;
 }
 .toolbox-cont{
     height: 5rem;
-    background-color:#361500;
+    background-color:#614124 ;
     display: flex;
     align-items: center;
-    position: fixed;
-    width: 100vw;
     top: 0px;
-}
+    width: 100vw;
+    position: fixed;  
+    
+    }
 
-.toolbox-priority-cont{
+.toolbox-priority-content{
     height: 3rem;
     background-color: #EEEDDE;
     width: 18rem;
     margin-left: 5rem;
     display: flex;
     justify-content: space-around;
-    align-items: center;
-    border-right: 2px solid #141E27;
+    align-items: center;    
 }
+.add-btn{
+    font-size: 1.5rem;
+}
+.remove-btn{
+    font-size: 1.5rem;
+}
+
 .action-btn-cont{
-    height: 3rem;
-    width: 7rem;
-    margin-left: 5rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #EEEDDE;
+height: 3rem;
+width: 7rem;
+margin-left: 5rem;
+background-color: #EEEDDE;
+display: flex;
+justify-content: space-around;
+align-items: center;
+
 }
 .color{
- height: 1.5rem;
- width: 3rem;
+    height: 1.5rem;
+    width: 3rem;
     
 }
 .lightpink{
-    background-color: lightpink;
+background-color: lightpink;
 }
 .blue{
     background-color: lightblue;
@@ -54,81 +61,82 @@ body{
 .black{
     background-color: black;
 }
-.add-btn{
-    font-size: 1.5rem;
-}
-.remove-btn{
-    font-size: 1.5rem;
+.active{
+    border: 5px solid white;
 }
 .modal-cont{
     background-color: lightgray;
     height: 50vh;
     width: 50vw;
-    display: none;
-    position: absolute;
     left: 25vw;
-    top: 25vh;
+    top: 25vh;   
+    position: absolute;
+    display: none;   
+
 }
 .textarea-cont{
     outline: none;
     resize: none;
     border: none;
-    background-color: #FFE3A9;
+    background-color: lightyellow;
     height: 100%;
     width: 75%;
     font-size: 2rem;
+    
     padding: 2rem;
-}
-.lock-unlock{
-    font-size:1.5rem;
-    margin-top: 3.5rem;
-    margin-left: 14rem;
 }
 .priority-color-cont{
     height: 100%;
     width: 25%;
+    background-color: #BE8C63;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    border: 1px solid #141E27;
-    background-color: #A64B2A;
+    border: 1px solid #603601;
 }
 .priority-color{
-height: 3rem;
-width: 5rem;
+    height: 3rem;
+    width: 5rem;
 }
-
 .main-cont{
     margin-top: 7rem;
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 3rem;
     margin-bottom: 2rem;
 
 }
-.active{
-    border: 5px solid #E0DDAA;
-}
 .ticket-cont{
-    background-color: #EEEDDE;
-    height: 10rem;
-    
-    width: 17rem;
+background-color: whitesmoke;
+height: 10rem;
+width: 18rem;
+
 }
 .ticket-color{
-    height: 1rem;
+height: 1rem;
 }
 .ticket-id{
 height: 1.5rem;
+;
 background-color: #EEEDDE;
+margin-top: 0.2rem;
+padding-left: 0.5rem;
+
 }
 .task-area{
-    padding-left: 0.3rem;
-    padding-right: 0.3rem;
-    overflow: auto;
-    outline: none;
-    word-break: break-all;
+    
+    height: 6rem;
+    padding: 5px;
     font-size: 1.25rem;
+    overflow: auto;
+    outline:none;
+    word-break: break-all;
+}
+.lock-unlock{
+    font-size: 1.5rem;
+ 
+    margin-left: 16rem;
+    
 }
