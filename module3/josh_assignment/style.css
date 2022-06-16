@@ -44,7 +44,11 @@ background-color: #CC9544;
     background-color: whitesmoke;
     border-radius: 100%;
     margin: auto;
-    margin-top: 24rem;
+    position: relative;
+    top: 33vh;
+    
+
+    
     
 }
 .fa.fa-plus{
@@ -52,4 +56,33 @@ background-color: #CC9544;
     margin-top: 1.4rem;
     font-size: 1.3rem;
     color: blue;
+}
+
+.textarea-container{
+    resize: none;
+    min-width: 63.5vh;
+    height: 8rem;
+    
+    outline: none;
+    
+    
+}
+li{
+    display: flex;
+}
+
+.model-container{
+    display: none;
+
+}
+.textarea-container{
+    font-size: 24px;
+    
+}
+.TaskLists{
+    cursor: pointer;
+    
+}
+.Completed{
+    cursor: pointer;
 }

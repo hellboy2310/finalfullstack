@@ -20,12 +20,41 @@
 
     let root = document.querySelector("#root");
 // jsx -> javascript + html
-            function Element(){
+       
+
+
+
+function Element1(){
                 return (
                     <h1>Hello coder</h1>
                 )
             }
-            ReactDOM.render(<Element/>,root);
+            // ReactDOM.render(<Element/>,root);
+
+function Element2(){
+    return(
+        <h2>how are you </h2>
+    )
+}
+
+function Element3(){
+    return(
+        <h3>how you doinnn???</h3>
+    )
+    
+}
+function Parent(){
+    return(
+        <div>
+            <Element1/>
+            <Element2/>
+            <Element1/>
+            <Element3/>
+
+        </div>
+    )
+}
+ReactDOM.render(<Parent/>,root);
 
 </script>
 </html>
