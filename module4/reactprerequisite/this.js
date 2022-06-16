@@ -25,7 +25,7 @@ def: function(){
 }
 }
 
-obj.def();
+obj.def();//method invocation
 
 // let ghi = obj.def;
 // ghi();//function invocation
