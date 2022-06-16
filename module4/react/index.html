@@ -24,31 +24,38 @@
 
 
 
-function Element1(){
+function Element1({name = "hellboy"}){
                 return (
-                    <h1>Hello coder</h1>
+                    <h1>Hello {name} coder</h1>
                 )
             }
             // ReactDOM.render(<Element/>,root);
 
-function Element2(){
+function Element2({age = "35"}){
     return(
-        <h2>how are you </h2>
+        <h2>how are you {age} </h2>
     )
 }
 
-function Element3(){
+function Element3({name = "xerxes",age = "20"}){
     return(
-        <h3>how you doinnn???</h3>
+        <h3>how you doinnn??? {name}  and your age is {age}</h3>
     )
     
 }
 function Parent(){
     return(
         <div>
+            <Element1 name ="Dheeraj"/>
+            <Element2 name = "Bhavesh" age = "20"/>
+            <Element1 name = "Ayush"/>
+            <Element1/>
+            <Element1/>
+            <Element1/>
             <Element1/>
             <Element2/>
-            <Element1/>
+            <Element2/>
+            <Element3 name = "shyam" age = "20"/>
             <Element3/>
 
         </div>
