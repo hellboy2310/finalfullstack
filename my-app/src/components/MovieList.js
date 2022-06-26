@@ -35,10 +35,24 @@ class MovieList extends Component {
     }
 
     handlePrev = () =>{
-        this.setState({
-            currPage:this.state.currPage-1
-        },this.changeMovies)
+        if(this.state.currPage != 1)
+        {
+            this.setState({
+                currPage:this.state.currPage-1
+            },this.changeMovies)
+        } 
+        
     }
+
+    handlePageClick=(ele) => {
+       if(ele != this.state.currPage)
+       {
+        this.setState({
+            currPage:ele
+        },this.changeMovies);
+    
+       }
+        }
 
     render() {
         
@@ -54,7 +68,7 @@ class MovieList extends Component {
                             <h5 className="card-title movie-title">{movieEle.title}</h5>
                             <div style={{ display: 'flex', justifyContent: "center" }}>
                                 {this.state.hover == movieEle.id && (
-                                <a href="#" type="button" className="btn btn-primary movies-button">Add to Favourites</a>)}
+                                <a  type="button" className="btn btn-primary movies-button">Add to Favourites</a>)}
                             </div>
                         </div>
                     ))}
@@ -62,11 +76,11 @@ class MovieList extends Component {
                 <div style={{display:"flex",justifyContent:"center"}}>
                 <nav aria-label="Page navigation example">
                     <ul className="pagination">
-                        <li className="page-item"><a className="page-link" onClick = {this.handlePrev}href="#">Previous</a></li>
+                        <li className="page-item"><a className="page-link" onClick = {this.handlePrev}>Previous</a></li>
                         {this.state.pArr.map((ele)=>(
-                                <li className="page-item"><a className="page-link" href="#">{ele}</a></li>
+                                <li className="page-item"><a className="page-link" onClick = {()=> this.handlePageClick(ele)} >{ele}</a></li>
                         ))}
-                        <li className="page-item"><a className="page-link" onClick = {this.handleNext} href="#">Next</a></li>
+                        <li className="page-item"><a className="page-link" onClick = {this.handleNext} >Next</a></li>
                     </ul>
                 </nav>
                 </div>
