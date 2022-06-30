@@ -9,8 +9,11 @@ class Fav extends Component{
         super();
         this.state = {
             genres:[],
+
             currgenre:'All genres',
-            movies:[]
+            movies:[],
+            movies2:[],
+            currText:''
         }
     }
     componentDidMount()
@@ -27,6 +30,7 @@ class Fav extends Component{
         })
         this.setState({
             movies:[...data],
+            movies2:[...data],
             genres:[...tempArr]
         })
     }
@@ -35,21 +39,97 @@ class Fav extends Component{
             let data = JSON.parse(localStorage.getItem("movies-app") || '[]');
             if(this.state.currgenre == "All genres"){
                 this.setState({
-                    movies:[...data]
+                    movies:[...data],
+                    movies2:[...data]
                 })
             }else{
                 let filteredMovies = data.filter((movieObj) => genreIds[movieObj.genre_ids[0]] == this.state.currgenre)
                 this.setState({
-                    movies:[...filteredMovies]
+                    movies:[...filteredMovies],
+                    movies2:[...filteredMovies]
                 })
             }
         }
+        handleCurrText = (inputValue) =>{
+            this.setState({
+                currText:inputValue
+            },this.searchMovies)
+        }
+
+        searchMovies = () =>{
+            if(this.state.currText != '')
+            {
+                let filteredArr = this.state.movies2.filter((movieObj)=>{
+                    let title = movieObj.original_title.toLowerCase();
+                    return title.includes(this.state.currText.toLowerCase());
+                })
+                this.setState({
+                    movies:[...filteredArr]
+                })
+
+            }
+            else{
+                let data = JSON.parse(localStorage.getItem("movies-app") || '[]');
+                this.setState({
+                    movies:[...this.state.movies2]
+                })
+            }
+            }
 
     handleChangeGenre = (genre) =>{
         this.setState({
             currgenre:genre
         },this.filterMovies)
     }
+
+        sortPopularityDesc = () =>{
+            let temp = this.state.movies.map((movieObj) =>movieObj);
+            temp.sort(function(objA,objB){
+                return objB.popularity - objA.popularity;
+            })
+            this.setState({
+                movies:[...temp],
+                movies2:[...temp]
+            })
+        }
+
+        sortPopularityInc = () =>{
+            let temp = this.state.movies.map((movieObj) =>movieObj);
+            temp.sort(function(objA,objB){
+                return objA.popularity - objB.popularity;
+            })
+            this.setState({
+                movies:[...temp],
+                movies2:[...temp]
+            })
+        }
+
+        sortRatingDesc = () =>{
+            let temp = this.state.movies.map((movieObj) => movieObj);
+            temp.sort(function(objA,objB){
+                return objB.vote_average - objA.vote_average;
+            })
+            this.setState({
+                movies:[...temp],
+                movies2:[...temp]
+            })
+        }
+                
+        sortRatingInc = () =>{
+            let temp = this.state.movies.map((movieObj) => movieObj);
+            temp.sort(function(objA,objB){
+                return objA.vote_average - objB.vote_average;
+            })
+            this.setState({
+                movies:[...temp],
+                movies2:[...temp]
+            })
+        }
+
+        handleDelete = () =>{
+            
+        }
+
     render(){
 
 
@@ -76,7 +156,7 @@ class Fav extends Component{
                     </div>
                     <div className="col-9 fav-table">
                         <div className="row">
-                            <input type="text" className="form-control col" placeholder="Search"/>
+                        <input type="text" className="form-control col" placeholder="Search" value={this.state.currText} onChange={(e)=>this.handleCurrText(e.target.value)}/>
                             <input type="number" className="form-control col" />
                         </div>             
                         <table className="table">
@@ -84,8 +164,17 @@ class Fav extends Component{
                                 <tr>
                                     <th scope="col">Title</th>
                                     <th scope="col">Genre</th>
-                                    <th scope="col">Popularity</th>
-                                    <th scope="col">Rating</th>
+
+                                    <th scope="col" style={{display:"flex",alignItems:"center",justifyContent:"space-evenly"}}>
+                                    <i class="fa fa-sort-up" style={{marginTop:"0.5rem"}} onClick={this.sortPopularityDesc}></i>
+                                        Popularity
+                                        <i class="fa fa-sort-down" onClick={this.sortPopularityInc}></i>    
+                                        </th>
+                                    <th scope="col" >
+                                    <i class="fa fa-sort-up" style={{marginTop:"0.5rem"}} onClick={this.sortRatingDesc}></i>
+                                        Rating
+                                        <i class="fa fa-sort-down"  onClick={this.sortRatingInc}></i>    
+                                        </th>
                                     <th scope="col">Delete</th>
                                 </tr>
                             </thead>
@@ -93,10 +182,10 @@ class Fav extends Component{
                                 this.state.movies.map((movieEle) => (
                                     <tr>
                                         <th scope="row"><img  style={{width:"8rem",padding:"1rem"}} src={`https://image.tmdb.org/t/p/original${movieEle.backdrop_path}`}/>{  movieEle.title}</th>
-                                        <td>{genreIds[movieEle.genre_ids[0]]}</td>
-                                        <td>{movieEle.popularity}</td>
-                                        <td>{movieEle.vote_average}</td>
-                                        <td><button type="button" className="btn btn-danger">Delete</button></td>
+                                        <td className="text-center">{genreIds[movieEle.genre_ids[0]]}</td>
+                                        <td className="text-center">{movieEle.popularity}</td>
+                                        <td className="text-center">{movieEle.vote_average}</td>
+                                        <td className="text-center" ><button type="button" className="btn btn-danger" onClick={()=>this.handleDelete(movieEle)}>Delete</button></td>
                                     </tr>
                                 ))
                                 }
