@@ -4,14 +4,14 @@ class Banner2 extends Component{
 
 render(){
     return(
-        <div className="card" >
-        <img style={{height:"130vh",width:'100vw'}} src="https://www.ode.systems/media/ubiqu2/files/1/49/IG_BeyondNetflix_No_Fucks_Given.png" className="card-img-top" alt="..."/>
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a  className="btn btn-primary">Go somewhere</a>
+        <div className="card banner-card" >
+        <img  src="https://m.media-amazon.com/images/G/31/Amazon-Global-Selling-IN/sell_books_online_amazon.jpg" className="card-img-top banner-img" alt="..."/>
+        
+          <h2 className="card-title banner-title">Bibliotheca</h2>
+          <p className="card-text banner-text">Hey folks start your reading journey from now</p>
+          
         </div>
-      </div>
+      
     )
 }
 
