@@ -41,7 +41,7 @@
   height: 70vh;
   margin-top: 2vh;
   margin-bottom: 3vh;
-  position: absolute;
+  position: relative;
 }
 
 .banner-img{
@@ -61,4 +61,11 @@
   color: black;
   left: 5vw;
   font-style: italic;
+}
+.movies-list{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding:1rem;
+  
 }

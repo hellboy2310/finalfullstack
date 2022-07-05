@@ -1,6 +1,7 @@
 
 import './App.css';
 import Banner2 from './components/Banner2';
+import BookList from './components/BookList';
 import Nav from './components/Nav';
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
    <>
    <Nav/>
    <Banner2/>
-  
+    <BookList/>
    </>
    );
 }
