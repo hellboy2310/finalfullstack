@@ -1,0 +1,1 @@
+// create a function using map that returns an array like object of all the argumenmts passed to it
