@@ -67,7 +67,34 @@
         alert("div tag was clicked");
       });
 
-      //   Solution:
+      // //   Solution:
+      // let ps = document.querySelectorAll("p");
+      // let container = document.querySelector(".container");
+      // let innerContainer = document.querySelectorAll(".inner-container");
+      
+      // for (let i = 0; i < ps.length; i++) {
+      //   ps[i].addEventListener("click", function () {
+      //     alert("p tag was clicked");
+      //   })
+      // }
+
+      //   for(let i = 0;i<innerContainer.length;i++)
+      //   {
+      //     innerContainer[i].addEventListener("click",function(e){
+      //       alert("parent of p was clicked");
+      //       let event = new Event("delete-event",{bubbles:false})
+      //       e.currentTarget.dispatchEvent(event);
+
+      //       innerContainer[i].addEventListener("delete-event",function(e){
+      //         e.currentTarget.remove();
+      //       })
+
+      //     })
+      //   }
+
+      //   container.addEventListener("click",function(){
+      //     alert("div tag was clicked");
+      //   })
 
     </script>
   </body>
