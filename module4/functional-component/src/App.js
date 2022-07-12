@@ -6,16 +6,16 @@ import Ue2 from './component/Ue2';
 import Ue3 from './component/Ue3';
 import Parent from './component/context/Parent';
 import Test from './component/context/Test';
+
+import contextNormal from './component/context/ContextNormal/ContextNormal';
+import ContextMemo from './component/context/ContextNormal/ContextMemo';
 function App() {
   return (
-    <>
-    {/* <Counter/> */}
-   {/* <Ue1/> */}
-    {/* <Ue3/> */}
-    {/* <Parent/> */}
-    <Test/>
+    
+    // <ThemeChanger/>
 
-    </>
+    <ContextMemo/>
+    
    );
 }
 
