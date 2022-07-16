@@ -6,4 +6,4 @@ function PageNotFound(){
     )
 }
 
-export default pageNotFound
+export default PageNotFound
