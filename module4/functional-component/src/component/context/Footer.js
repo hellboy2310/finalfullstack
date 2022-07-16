@@ -5,15 +5,17 @@ import { ThemeContext } from "./ThemeChanger";
 function Footer(){
 return(<>
 <div>Footer</div>
+<FooterText></FooterText>
 </>)
 }
 
 function FooterText(){
-    let ctheme = useContext(ThemeContext);
+    let CTheme = useContext(ThemeContext);
     return(
-        <div className={ctheme == 'light'?'light':'dark'}>
-            FooterText
+        <div className={CTheme=='light'?'light':'dark'}>
+            footertext
         </div>
     )
 }
+
 export default Footer;

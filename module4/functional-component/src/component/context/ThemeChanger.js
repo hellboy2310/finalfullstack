@@ -1,27 +1,27 @@
-import React from "react";
-import NavBar from "./NavBar";
+import React, {useState} from "react";
 import Footer from "./Footer";
-
-export const ThemeContext = React.createContext("");
-
+import NavBar from "./NavBar";
+ export const ThemeContext = React.createContext(""); //this will help us to create the context 
+ // we have exported it so that we can use it everywhere
 function App(){
-    let [theme,setTheme] = useState("light");
+    let[theme,setTheme] = useState("light");
+
+
     const handleTheme = () =>{
         if(theme == 'light')
         {
             setTheme('dark');
         }
         else{
-            setTheme('light');
+            setTheme('light')
         }
     }
-
-
     return(
-        <ThemeContext.Provider value = {theme}>
-            <button onClick = {handleTheme}>Change Theme</button>
-
-        </ThemeContext.Provider>
+       <ThemeContext.Provider value = {theme}>
+        <button onClick={handleTheme}> Change Theme</button>
+        <NavBar></NavBar>
+        <Footer></Footer>
+       </ThemeContext.Provider>  
     )
 }
 
