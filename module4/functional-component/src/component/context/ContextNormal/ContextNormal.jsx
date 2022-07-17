@@ -1,10 +1,10 @@
-import { useState,createContext, useContext } from "react";
+ import { useState,createContext, useContext } from "react";
 let Context = createContext("Hello");
 
 export default function ContextNormal(){
     const [message,setMessage] = useState("fake message");
     const changeMessage = ()=>{
-        setMessage("Message updated")
+         setMessage("Message updated")
     }
     console.log("rendered context Normal")
     return(<>
