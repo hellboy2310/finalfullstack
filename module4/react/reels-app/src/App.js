@@ -5,9 +5,11 @@ import PageNotFound from "./components/PageNotFound"
 import {Switch,Route} from "react-router-dom"
 import Signup from "./components/Signup";
 import Profile from "./components/Profile";
+import {AuthContextProvider} from './context/AuthContext';
 
 function App() {
   return (
+    <AuthContextProvider>
    <Switch>
     <Route path="/feed">
       <Feed></Feed>
@@ -26,6 +28,7 @@ function App() {
         </Route>    
 
    </Switch>
+   </AuthContextProvider>
   );
 }
 

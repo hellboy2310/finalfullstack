@@ -1,19 +1,47 @@
 import { useState } from "react"
-import {auth} from "../firebase"
+import {auth,db} from "../firebase"
 import {createUserWithEmailAndPassword, sendSignInLinkToEmail} from "firebase/auth";
-
+import{addDoc,collection} from "firebase/firestore"
 
 function Signup(){
         const[email,setEmail] = useState("");
         const[password,setPassword] = useState("");
         const[name,setName] = useState("");
-   
+        const[loader,setLoader] = useState(false);
+        const[error,setError] = useState("");
+        const[user,setUser] = useState("");
+
         async function processSignup(){
-            let userCred = await createUserWithEmailAndPassword(auth,email,password)
-            console.log(userCred.user);
+
+        try{
+                setLoader(true);
+                let userCred = await createUserWithEmailAndPassword(auth,email,password)
+            // console.log(userCred.user);
+                const docRef = await addDoc(collection(db,"users"),{
+                    email,
+                    name,
+                    reelsIds : [],
+                    profileImgUrl:"",
+                    userId:userCred.user.uid
+                });
+
+        }   
+        catch(error){
+                setError(error.message);
+                setTimeout(()=>{
+                    setError("")
+                },2000)
+        } 
+        setLoader(false);
+        
         }
         
     return(
+        <>
+        {
+        error != ""?<h1> Error is {error}</h1>:
+        loader == true?<h1>...Loading</h1>:
+        user != ""?<h1>Sign up User is{user.uid}</h1>:
         <>
         <input type = "email" onChange = {(e)=>{setEmail(e.target.value)}} value = {email}placeholder="email"></input>
         <br></br>
@@ -22,6 +50,10 @@ function Signup(){
         <input type = "text" onChange = {(e)=>{setName(e.target.value)}} value = {name}placeholder="Full Name"></input>
         <br></br>
         <button type = "click" onClick={processSignup}>Sign Up</button>
+        
+        </>
+        
+        }
         </>
 )
 }

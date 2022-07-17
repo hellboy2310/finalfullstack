@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useEffect,useState } from "react"
 import {auth} from "../firebase"
-import {signInWithEmailAndPassword,signOut} from "firebase/auth";
-import { async } from "@firebase/util";
+import {signInWithEmailAndPassword,signOut,onAuthStateChanged} from "firebase/auth";
+
 
 
 
@@ -11,7 +11,7 @@ function Login(){
     const[user,setUser] = useState(null);
     const[loader,setLoader] = useState(false);
     const[error,setError] = useState("");
-    
+
     
 
     
@@ -46,11 +46,30 @@ function Login(){
             await signOut(auth);
             setUser(null);
         }
+        useEffect(()=>{
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                  // User is signed in, see docs for a list of available properties
+                  // https://firebase.google.com/docs/reference/js/firebase.User
+                //   const uid = user.uid;
+                  setUser(user);
+                  // ...
+                } else {
+                  // User is signed out
+                  // ...
+                  setUser(null);
+                }
+
+            })
+        },[])
+        
 
 
     return (
         <>
-            {error != "" ? <h1> Error is {error}</h1>:
+            
+            {
+            error != "" ? <h1> Error is {error}</h1>:
               loader == true? <h1>...loading</h1>:
               user != null ?<> <h1>User is {user.uid}</h1><button onClick={logOut}>Log Out</button></>:         
            <>
