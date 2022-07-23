@@ -1,9 +1,52 @@
 import { useState } from "react"
+import { useEffect } from "react"
 import "./videoCard.css"
+import {getDoc,setDoc,doc,updateDoc, arrayRemove} from "firebase/firestore"
+import {AuthContext} from "../context/AuthContext"
+import {db} from "../firebase"
+import { useContext } from "react"
+import { async } from "@firebase/util"
 
-const VideoCard = () => {
+
+
+
+const VideoCard = (props) => {
+    let user = useContext(AuthContext)
     let [playing, setPlaying] = useState(true);
     let [commentBoxOpen, setCommentBox] = useState(false);
+    let[currUserLiked,SetCurrUserLiked] = useState(false);
+    console.log("props",props);
+        let [currUserComment, setCurrUserComment] = useState("");
+        let [comments,setComments] = useState([]);
+        
+        useEffect(async()=>{
+            let commentsIdArr = props.data.comments;
+            let arr = [];
+            for(let i = 0;i<commentsIdArr.length;i++)
+            {
+                const commentRef = doc(db,"comments",commentsIdArr[i]);
+                const commentSnap  = await getDoc(commentRef);
+                arr.push(commentSnap.data())
+            }
+            console.log("Array",arr)
+            setComments(arr);
+
+            if(user){
+                let a = props.data.likes.inclueds(user.uid);
+                SetCurrUserLiked(a)
+            }
+
+        },[props])
+
+
+            console.log("props",props);
+
+
+
+
+
+
+
     return (
         <div className="video-card">
             <p className="video-card-username">Fake User</p>
@@ -21,8 +64,44 @@ const VideoCard = () => {
                 }
             }}>Chat</span>
 
+           
+           <span onClick={async()=>{
+            let likesArr = props.data.likes;
+            if(currUserLiked)
+            {
+                likesArr = likesArr.filter((el) => el != user.uid);
+
+            }
+            else{
+                likesArr.push(user.uid);
+            }
+            const postsRef = doc(db,"posts",props.data.id);
+            await updateDoc(postsRef,{
+                likes:likesArr
+            });
+            let c = !currUserLiked;
+            SetCurrUserLiked(c);
+           }}>
+            {currUserLiked ? "Liked" : "Do you like it??"}
+
+           </span>
+           
+           
+           
             {commentBoxOpen ? (
                 <div className="video-card-comment-box">
+                    
+                {comments.map((comment)=>{
+                    return(
+                        <div className="acutal-comments">
+                            <h5>{comment.email}</h5>
+                        <p>{comment.comment}</p>
+
+                        </div>
+                    )
+                })}
+
+
                     <div className="actual-comments">
                         <h5>User name</h5>
                         <p>This is actual comment</p>
@@ -30,8 +109,22 @@ const VideoCard = () => {
 
                     <div className="comment-form">
                         <div className="post-user-comment">
-                            <input type="text" />
-                            <button>post</button>
+                            <input type="text"  value= {currUserComment} onChange = {(e)=> setCurrUserComment(e.currentTarget.value)}/>
+                            <button onClick={async() =>{
+                                let commentId = user.uid + "$" + Date.now();
+                                await setDoc(doc(db,"comments",commentId),{
+                                    email:user.email,
+                                    comment:currUserComment, });
+                                    setCurrUserComment("");
+                                    let postCommentsArr  = props.data.comments
+                                    postCommentsArr.push(commentId)
+                                    const postsRef = doc(db,"posts",props.data.id);
+                                    await updateDoc(postsRef,{
+                                        comments: postCommentsArr
+                                    });
+                            }}>
+                                post
+                                </button>
                         </div>
 
                     </div>
@@ -46,7 +139,7 @@ const VideoCard = () => {
                     e.currentTarget.play();
                     setPlaying(true);
                 }
-            }} src="https://firebasestorage.googleapis.com/v0/b/class-demo-28b22.appspot.com/o/production%20ID_4678261.mp4?alt=media&token=1e88c2b2-1603-44dc-b521-56241c88f990"
+            }}src={props.data.url}
                 crossrigin="anonymous" ></video>
 
         </div>

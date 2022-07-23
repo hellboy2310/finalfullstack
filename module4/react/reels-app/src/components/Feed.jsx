@@ -1,8 +1,28 @@
 import "./feed.css"
-import { auth, storage } from "../firebase"
+import { auth, storage,db } from "../firebase"
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 import VideoCard from "./VideoCard"
+import { useContext, useEffect } from "react"
+import { AuthContext } from "../context/AuthContext"
+import { setDoc,doc } from "firebase/firestore"
+import {collection , getDocs} from "firebase/firestore"
+import {useState} from "react"
+
 function Feed() {
+    let user = useContext(AuthContext);
+    let [posts,setPosts] = useState([]);
+    useEffect(async() =>{
+        const querySnapshot = await getDocs(collection(db,"posts"));
+        let arr = [];
+        querySnapshot.forEach((doc)=>{
+            console.log(doc.id,"=>",doc.data());
+            arr.push({id:doc.id,...doc.data()})
+        });
+        setPosts(arr);
+        console.log(posts);
+    },[])
+  
+  
     return (
         <>
             <div className="header">
@@ -51,11 +71,20 @@ function Feed() {
                                 () => {
                                     // Handle successful uploads on complete
                                     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                    getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
                                         console.log('File available at', downloadURL);
+                                        console.log(user);
+                                        await setDoc(doc(db,"posts",user.uid + `${name}`),{
+                                            email:user.email,
+                                            url:downloadURL,
+                                            likes:[],
+                                            comments:[]
+
+                                        });
+                                    
                                     });
-                                }
-                            );
+
+                                });
                         }
                     }}
 
@@ -64,7 +93,11 @@ function Feed() {
 
 
                 <div className="reels_container">
-                    <VideoCard />
+                    {
+                        posts.map((post)=>{
+                            return <VideoCard key = {post.id} data = {post}/>
+                        })
+                    }
                 </div>
             </div>
         </>
