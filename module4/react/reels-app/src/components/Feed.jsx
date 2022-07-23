@@ -24,6 +24,7 @@ function Feed() {
                         let { name, size, type } = videoObj
                         console.log(size);
                         type = type.split("/")[0];
+                        
                         if (type !== "video") {
                             alert("Please upload a video");
                         } else {
