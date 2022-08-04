@@ -18,16 +18,18 @@
     display: flex;
     justify-content: space-around;
     width: 90%;
+    flex-wrap: wrap;
 }
 
 .template{
     height: 280px;
     width:250px;
-    background-color: black;
+    margin: 10px;
+    border: 1px solid black;   
     position: relative;
 }
 
-template img{
+.template img{
     height: 100%;
     width: 100%;
 }
@@ -37,4 +39,10 @@ template img{
     color: white;
     border-radius: 5px;
     border:1px solid white;
-} 
+    position: absolute;
+    top: 50%;
+    left: 25%;
+}
+.template img:hover{
+    opacity:0.6;
+}

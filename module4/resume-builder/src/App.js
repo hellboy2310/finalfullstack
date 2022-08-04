@@ -5,6 +5,10 @@ import Register from "./components/Register";
 import Signin from "./components/signin";
 import Template from "./components/template";
 import {Route, Switch} from "react-router-dom"
+import Contact from './components/contact';
+import Education from './components/education'
+
+
 
 
 function App() {
@@ -27,6 +31,13 @@ function App() {
     <Route path = "signin" exact>
       <Signin></Signin>
     </Route>
+    <Route path = '/contact' exact>
+      <Contact></Contact>
+    </Route>
+    <Route path = '/education' exact>
+      <Education></Education>
+    </Route>
+    
     </Switch>
   </>
   );
