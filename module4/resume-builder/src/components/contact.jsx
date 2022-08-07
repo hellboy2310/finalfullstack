@@ -1,16 +1,29 @@
 import Preview from "./preview"
 import "./contact.css"
-import { useSelector } from "react-redux"
+import {useDispatch,useSelector} from 'react-redux'
 import {useState} from "react"
 import {Link} from "react-router-dom";
+import { addContactCreator } from '../redux/action'
 
 function Contact(){
 
-    const[contact,setContact] = useState({})
+    // const[contact,setContact] = useState({})
+
+
+    let state = useSelector((state)=>state);
+    let dispatch = useDispatch();
+
+
+    let contact = state.contactReducer;
+    console.log(contact);
+
     const onChange = (event) =>{
         let key = event.target.id;
         let value  = event.target.value;
-        setContact({...contact,[key]:value})
+         
+
+        let newContact = {...contact,[key]:value};
+        dispatch(addContactCreator(newContact));
     }
 
     const getFieldData = (key)=>{
@@ -69,12 +82,12 @@ function Contact(){
                     </div>
                     <div className="next full btn">
                        
-                    <Link to = "/template">Next</Link>
+                    <Link to = "/template">Back</Link>
                     
                     </div>
                     <div className="next full btn">
                        
-                       <Link to = "/template">Back</Link>
+                       <Link to = "/education">Next</Link>
                        
                        </div>
 

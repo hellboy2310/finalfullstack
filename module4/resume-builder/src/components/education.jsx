@@ -2,17 +2,21 @@ import Preview from "./preview"
 import "./education.css"
 import {Link} from 'react-router-dom'
 import {useState} from "react"
-
+import {useDispatch,useSelector} from "react-redux";
+import {addEducationCreator} from '../redux/action'
 
 function Education(){
 
-    const [education,setEducation] = useState({})
+    let state = useSelector((state)=>state);
+    let dispatch = useDispatch();
+    let education = state.educationReducer;
 
 
         const onChange = (event)=>{
             let key  = event.target.id;
             let value = event.target.value;
-            setEducation({...education,[key]:value})
+            let newEducation = {...education,[key]:value}
+            dispatch(addEducationCreator(newEducation))
         }
         const getFieldData = (key)=>{
             if(education[key]){
@@ -40,7 +44,7 @@ function Education(){
                     </div>
                     <div className="input-group">
                         <label htmlFor="">CGPA</label>
-                        <input type="text" id="summary"  value={getFieldData("summary")} onChange={onChange}/>
+                        <input type="text" id="cgpa"  value={getFieldData("cgpa")} onChange={onChange}/>
                     </div>
                     <div className="input-group">
                         <label htmlFor="">City</label>
@@ -59,7 +63,7 @@ function Education(){
                         <Link to="/contact">Back</Link>
                    </div>
                    <div className="back btn full">
-                        <Link to="/">Next</Link>
+                        <Link to="/finalize">Next</Link>
                    </div>
                 </div>
             </div>

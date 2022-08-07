@@ -35,13 +35,14 @@
 }
 
 .template-btn{
-    background-color: red;
+    background-color: seagreen;
     color: white;
     border-radius: 5px;
     border:1px solid white;
     position: absolute;
     top: 50%;
     left: 25%;
+    height: 35px;
 }
 .template img:hover{
     opacity:0.6;
