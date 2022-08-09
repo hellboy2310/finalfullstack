@@ -1,7 +1,11 @@
 {
+    "auth":{
+        "isAuth":false,
+        "user":null
+    },
     "document":{
         "id":null,
-        "skubCd" :""
+        "skinCd":"skin1"
     },
     "education":{
 

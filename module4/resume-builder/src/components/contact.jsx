@@ -80,14 +80,14 @@ function Contact(){
                         <label htmlFor="">Pin Code</label>
                         <input type="text" id="pin" value={getFieldData("pin")} onChange={onChange}/>
                     </div>
-                    <div className="next full btn">
+                    <div className="back-next btn-full btn full">
                        
-                    <Link to = "/template">Back</Link>
+                    <Link to = "/template" className = "back">Back</Link>
                     
                     </div>
-                    <div className="next full btn">
+                    <div className="btn-full btn full">
                        
-                       <Link to = "/education">Next</Link>
+                       <Link to = "/education" className="back">Next</Link>
                        
                        </div>
 

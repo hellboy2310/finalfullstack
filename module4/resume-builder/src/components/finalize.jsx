@@ -5,6 +5,9 @@ import Preview from './preview'
 import Skin1 from './static/images/skin1.svg'
 import Skin2 from './skins/skin2'
 import Skin5 from './skins/skin5'
+import html2canvas from 'html2canvas'
+import jsPDF from 'jspdf'
+
 
 
 function Finalize(){
@@ -13,11 +16,39 @@ function Finalize(){
         console.log(skinCode)
         dispatch(setSkinCreator(skinCode))
     }
+
+    const downloadResume = ()=>{
+        const input = document.getElementById('resumePreview');
+        html2canvas(input)
+        .then((canvas)=>{
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p','mm','a4');
+
+            var width = pdf.internal.pageSize.getWidth();
+
+            var height = pdf.internal.pageSize.getHeight();
+
+            pdf.addImage(imgData,'JPEG',0,0,width,height);
+            pdf.save('resume.pdf');
+        }).catch((function(error){
+            console.log(error);
+        }))
+    }
+
     return(
         <div className="finalize">
-            <div className="finalize-preview">
+            <div className="finalize-preview" id= "resumePreview">
                 <Preview></Preview>
             </div>
+            <div className="download-options">
+                <div className="download-btn">
+                        <button className="btn" onClick={downloadResume}>Download Resume as PDF</button>
+                </div>
+                <div className="save-btn">
+                    <button className="btn">Save to Database</button>
+                </div>
+            </div>
+
             <div className="final-templates">
                 {/* All templates */}
                 <div className="template" >
