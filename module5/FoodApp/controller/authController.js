@@ -1,22 +1,24 @@
-const express = require('express');
-const app = express();
+// const express = require('express');
+// const app = express();
 
 
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
 
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const secretKey = 'lkanjgioahgiavvdalhga';
 
 
-app.use(express.json());
-app.use(cookieParser());
+// app.use(express.json());
+// app.use(cookieParser());
 
-const userModel = require("./userModel");
-app.listen(3000,function(){
-    console.log("server at port 3000");
-})
+const userModel = require("../model/userModel");
+const mailSender = require("../utilities/mailSender");
 
-app.post("/signup",async function(req,res){
+// app.listen(3000,function(){
+//     console.log("server at port 3000");
+// })
+
+async function signupController(req,res){
     try{
         let data = req.body;
         
@@ -30,9 +32,9 @@ app.post("/signup",async function(req,res){
 catch(err){
     res.send(err.message);
 }
-})
+}
 
-app.post("/login",async function(req,res){
+async function loginController(req,res){
     try{
             let data = req.body;
             let{email,password} = data;
@@ -69,27 +71,41 @@ app.post("/login",async function(req,res){
                 console.log(err.message);
         }
     
-})
+}
 
 
-app.patch("/forgotPassword",async function(req,res){
+async function forgetPasswordController(req,res){
     try{
         let {email} = req.body;
+        
+        let user = await userModel.findOne({email});
+        if(user)
+        {
         let otp = otpGenerator();
         let afterFiveMin  = Date.now() + 1000*60*5;
-        let user = await userModel.findOneAndUpdate({email:email},{otp:otp,otpExpiry:afterFiveMin},{new:true});
-        console.log(user);
+        await mailSender(email,otp);
+        user.otp = otp;
+        user.otpExpiry = afterFiveMin;
+        await user.save();
         res.json({
             data:user,
             "message":"otp sent to your mail"
         })
+
+        }
+        else{
+            res.json({
+                result:"user with this email does not exist"
+            })
+        }
+        
     }
     catch(err){
         res.send(err.message);
     }
-})
+}
 
-app.patch("/resetPassword",async  function(req,res){
+async  function resetPasswordController(req,res){
     try{
             let{otp,password,confirmPassword,email} = req.body;
             let user = await userModel.findOne({email});
@@ -126,44 +142,39 @@ app.patch("/resetPassword",async  function(req,res){
     catch(err){
         res.send(err.message);
     }
-})
+}
 
 function otpGenerator(){
     return Math.floor(Math.random() * 1000000);
 }
 
 
+// app.get("/users",protectRoute,async function(req,res){
+//     try{
+//         let users = await userModel.find();
+//         res.json(users);
+//     }
+//     catch(err){
+//         res.send(err.message);
+//     }
+// })
 
-
-
-
-
-app.get("/users",protectRoute,async function(req,res){
-    try{
-        let users = await userModel.find();
-        res.json(users);
-    }
-    catch(err){
-        res.send(err.message);
-    }
-})
-
-app.get("/user",protectRoute,async function(req,res){
-    try{
-        const userId = req.userId;
-        const user = await userModel.findById(userId);
-        //to send json data
-        res.json({
-            data:user,
-            message:"data about logged in user is send",
+// app.get("/user",protectRoute,async function(req,res){
+//     try{
+//         const userId = req.userId;
+//         const user = await userModel.findById(userId);
+//         //to send json data
+//         res.json({
+//             data:user,
+//             message:"data about logged in user is send",
            
-        })
+//         })
         
-    }
-    catch(err){
-            res.send(err.message);
-    }
-})
+//     }
+//     catch(err){
+//             res.send(err.message);
+//     }
+// })
 
 function protectRoute(req,res,next){
     try{
@@ -184,4 +195,12 @@ function protectRoute(req,res,next){
         console.log(err);
         res.send(err.message);
     }
+}
+
+module.exports = {
+    signupController,
+    loginController,
+    resetPasswordController,
+    forgetPasswordController,
+    protectRoute
 }
