@@ -5,6 +5,8 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavBar from './Components/Home Page/NavBar';
 import Footer from './Components/Home Page/Footer';
+import Otp from "./Components/Login Page/Otp";
+import PasswordReset from "./Components/Login Page/PasswordReset";
 import Login from './Components/Login Page/Login';
 import ForgetPassword from './Components/Login Page/ForgetPassword';
 import AllPlans from './Components/Plan Page/AllPlans';
@@ -29,6 +31,12 @@ function App() {
           </Route>
           <Route path="/forgetPassword">
             <ForgetPassword />
+          </Route>
+          <Route path="/otp">
+            <Otp></Otp>
+          </Route>
+          <Route path="/passwordReset">
+            <PasswordReset></PasswordReset>
           </Route>
           <Route path="/allPlans">
             <AllPlans />

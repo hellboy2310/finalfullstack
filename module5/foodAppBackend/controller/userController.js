@@ -8,7 +8,7 @@ async function profileController(req,res){
         const user = await userModel.findById(userId);
         //to send json data
         res.json({
-            data:user,
+            user:user,
             message:"data about logged in user is send",
            
         })

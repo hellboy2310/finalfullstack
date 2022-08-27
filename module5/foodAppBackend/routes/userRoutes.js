@@ -6,8 +6,8 @@ const {
 } = require("../controller/userController")
 
 const {protectRoute} = require("../controller/authController")
-userRouter.get("/users",protectRoute,getAllUsersController)
+userRouter.get("/",protectRoute,getAllUsersController)
 
-userRouter.get("/user",protectRoute,profileController)
+userRouter.get("/profile",protectRoute,profileController)
 
 module.exports = userRouter;

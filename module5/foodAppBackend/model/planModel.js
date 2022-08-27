@@ -14,6 +14,13 @@ let planSchema = new mongoose.Schema({
         type:Number,
         required:[true,'you need to provide  price']
     },
+    reviews:{
+        type:[mongoose.Schema.ObjectId],
+        ref:"foodReviewModel",
+    },
+    averageRating:{
+        type:Number
+    },
     discount:{
         type:Number,
         validate:{
