@@ -1,4 +1,3 @@
-
 const userModel = require("../model/userModel")
 
 
@@ -9,13 +8,10 @@ async function profileController(req,res){
         //to send json data
         res.json({
             user:user,
-            message:"data about logged in user is send",
-           
+            message:"Data about logged in user is send"
         })
-        
-    }
-    catch(err){
-            res.send(err.message);
+    }catch(err){
+        res.send(err.message)
     }
 }
 
@@ -23,10 +19,11 @@ async function getAllUsersController(req,res){
     try{
         let users = await userModel.find();
         res.json(users);
-    }
-    catch(err){
+    }catch(err){
         res.send(err.message);
     }
+    // console.log(req.cookies);
+    // res.send("cookie read");
 }
 
 

@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 let reviewSchema = new mongoose.Schema({
     description:{
         type:String,
-        required:[true,"Review cannot be empty"],
+        required:[true,"Review can't be empty"],
     },
     rating:{
         type:Number,
@@ -25,8 +25,8 @@ let reviewSchema = new mongoose.Schema({
         required:[true,"Review must belong to a plan"],
         ref:"foodPlanModel"
     }
-
 })
 
 const foodReviewModel = mongoose.model('foodReviewModel',reviewSchema)
+
 module.exports = foodReviewModel;

@@ -4,7 +4,7 @@ const reviewRouter = express.Router();
 
 
 reviewRouter.route('/')
-.get(getAllReviewController)
-.post(createReviewController)
+    .get(getAllReviewController)
+    .post(createReviewController)
 
 module.exports = reviewRouter;
