@@ -39,16 +39,15 @@ function AuthProvider({ children }) {
                 email: email,
                 password: password
             });
-            setLoading(false);
-            // console.log("40",res.data);
             userSet(res.data.user);
+            setLoading(false);
+            // console.log("40",res.data.user);
+            return flag;
         }
         catch (err) {
             console.log(err);
             alert(err.message);
             setLoading(false);
-            
-            return flag;
         }
         console.log("login will be here");
     }

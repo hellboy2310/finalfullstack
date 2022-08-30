@@ -1,9 +1,7 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import '../Styles/login.css'
-// import axios from 'axios';
+import axios from 'axios';
 // import { connect } from 'react-redux';
-// import { useHistory } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import {useAuth} from "../Context/AuthProvider"
 
@@ -11,13 +9,12 @@ function ForgetPassword() {
     const [email, emailSet] = useState("");
     const { setResetEmail } = useAuth();
     const history = useHistory();
-    const sendEmail = async() =>{
-        let res = await axios.patch("/api/v1/auth/forgetPassword",{email});
-        alert("mail send to your registered email ");
+    const sendEmail = async ()=>{
+        let res = await axios.patch("/api/v1/auth/forgetPassword",{email})
+        alert("mail send to your regsitered email");
         console.log(res);
         setResetEmail(email);
         history.push("/otp");
-
     }
     return (
         <div className="container-grey">
@@ -31,7 +28,7 @@ function ForgetPassword() {
                         <div className="entryText">Email</div>
                         <input className="email input" type="email" name="Email" placeholder="Your Email" required="" onChange={(e) => emailSet(e.target.value)} />
                     </div>
-                    <button className="loginBtn  form-button" onClick = {sendEmail}>
+                    <button className="loginBtn  form-button" onClick={sendEmail}>
                         Send Email
                     </button>
 

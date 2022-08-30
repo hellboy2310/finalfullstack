@@ -80,4 +80,4 @@ function PasswordReset() {
     )
 }
 
-export default PasswordReset 
+export default PasswordReset

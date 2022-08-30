@@ -9,7 +9,7 @@ function AllPlans() {
     useEffect(async () => {
         try {
             const data = await axios.get("/api/v1/plan");
-            console.log(data.AllPlans);
+            console.log(data.data.AllPlans);
             arrset(data.data.AllPlans);
         } catch (err) {
             console.log(err);
@@ -31,7 +31,7 @@ function AllPlans() {
                                     <div className='price'>Rs {ele.price}</div>
                                     <div className="duration">/month</div>
                                 </div>
-                                <p className="point">That’s only {Math.floor(ele.price/ele.duration)} per month </p>
+                                <p className="point">That’s only {Math.floor(ele.price/ele.duration)} per month</p>
                             </div>
 
                             <div className='pCard2'>
