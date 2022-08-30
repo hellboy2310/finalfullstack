@@ -4,14 +4,12 @@ const foodPlanModel = require("../model/planModel")
 
 async function getAllPlansController(req,res){
     try{
-        let plans = await foodPlanModel.find();
+        let plans = await foodPlanModel.find().populate("reviews");
          res.status(200).json({
             AllPlans:plans
          })
     }
     catch(err){
-       
-
         res.status(500).json({err:err.message});
     }
 }
@@ -24,7 +22,7 @@ async function getAllPlansController(req,res){
             console.log(newPlan);
            
             res.status(201).json({
-                result:"plan created",
+                data:"plan created",
                 plan:newPlan
             })
         }
@@ -37,9 +35,9 @@ async function getAllPlansController(req,res){
     async function getPlanController(req,res){
     try{
         let id = req.params.planRoutes;
-        let plan = await foodPlanModel.findById(id);
+        let plan = await foodPlanModel.findById(id).populate("reviews");
         res.status(200).json({
-            result:"plan found",
+            data:"plan found",
             plan:plan              
         })
 
@@ -64,7 +62,7 @@ async function getAllPlansController(req,res){
         
             await plan.save();
             res.status(200).json({
-                result:"plan update",
+                data:"plan update",
                 plan
             })
         
@@ -82,7 +80,7 @@ async function getAllPlansController(req,res){
                 let id = req.params.planRoutes;
                 let plan = await foodPlanModel.findByIdAndDelete(id);
                 res.status(200).json({
-                    result:"plan deleted",
+                    data:"plan deleted",
                     plan:plan
                 })
         }
